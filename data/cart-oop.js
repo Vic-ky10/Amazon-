@@ -1,3 +1,8 @@
+// oops 
+ //organizing our code into objects (tries to represent the real world)
+
+ // class = object Generator
+
 function Cart(localStorageKey) {
   const cart = {
     cartItems: undefined,
