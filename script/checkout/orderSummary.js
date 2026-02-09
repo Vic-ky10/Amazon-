@@ -1,8 +1,4 @@
-import {
-  cart,
-  removeFromCart,
-  updateDeliveryOption,
-} from "../../data/cart.js";
+import { cart, removeFromCart, updateDeliveryOption } from "../../data/cart.js";
 import { products } from "../../data/products.js";
 import { formatCurrency } from "../utils/money.js";
 import { hello } from "https://unpkg.com/supersimpledev@1.0.1/hello.esm.js";
@@ -17,7 +13,7 @@ const deliveryDate = today.add(7, "day");
 console.log(deliveryDate.format("dddd, MMMM D"));
 
 export function renderOrderSummary() {
-  let cartSummaryHTML = " ";    
+  let cartSummaryHTML = " ";
   cart.forEach((cartItem) => {
     const productId = cartItem.productId;
 
@@ -29,8 +25,7 @@ export function renderOrderSummary() {
       }
     });
 
-    const deliveryOptionId =
-      cartItem.deliveryOptionId || deliveryOptions[0].id;
+    const deliveryOptionId = cartItem.deliveryOptionId || deliveryOptions[0].id;
     const deliveryOption =
       deliveryOptions.find((option) => option.id === deliveryOptionId) ||
       deliveryOptions[0];
@@ -39,7 +34,9 @@ export function renderOrderSummary() {
     const dateString = deliveryDate.format("dddd, MMMM D");
 
     cartSummaryHTML += `
-  <div class="cart-item-container js-cart-item-container-${matchingProduct.id}">
+  <div class="cart-item-container
+  js-cart-item-container 
+   js-cart-item-container-${matchingProduct.id}">
     <div class="delivery-date" >
      Delivery date: ${dateString}
    
@@ -56,7 +53,7 @@ export function renderOrderSummary() {
         <div class="product-price">
        ${formatCurrency(matchingProduct.priceCents)}
         </div>
-        <div class="product-quantity">
+        <div class="product-quantity js-product-quantity-${matchingProduct.id}">
         <span>
             Quantity: <span class="quantity-label">${cartItem.quantity}</span>
         </span>
@@ -65,7 +62,8 @@ export function renderOrderSummary() {
         </span>
         
 
-        <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${matchingProduct.id}">
+        <span class="delete-quantity-link link-primary js-delete-link-${matchingProduct.id}
+        " data-product-id="${matchingProduct.id}">
             Delete
         </span>
         </div>
@@ -111,7 +109,6 @@ export function renderOrderSummary() {
   });
 }
 
-
 function deliveryOptionsHtml(matchingProduct, cartItem) {
   let html = "";
   deliveryOptions.forEach((deliveryOption) => {
@@ -147,6 +144,3 @@ function deliveryOptionsHtml(matchingProduct, cartItem) {
   });
   return html;
 }
-
-
-
