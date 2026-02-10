@@ -2,11 +2,27 @@
 
 import { renderPaymentSummary } from "./checkout/paymentSummary.js";
 import "../data/back-end-practise.js";
-import { loadProducts,loadProductsFetch } from "../data/products.js";
+import { loadProducts, loadProductsFetch } from "../data/products.js";
 import { loadFromStorage } from "../data/cart.js";
-
 // import '../data/cart-class.js'
 
+async function loadPage() {
+  
+  await loadProductsFetch();
+
+  const value =  await new Promise((resolve) => {
+    loadProducts(() => {
+      resolve('value2');
+    });
+  });
+
+  renderOrderSummary();     // async - await , shortcut for promises  ,  lets us write asynchronous code like normal code.  
+                              //  use as
+  renderPaymentSummary();
+}
+loadPage();
+
+/*
 Promise.all([
   loadProductsFetch(),
   new Promise((resolve) => {
@@ -22,7 +38,7 @@ Promise.all([
   renderPaymentSummary();
 });
 
-
+*/
 /*
 new Promise((resolve) => {
   loadProducts(() => {

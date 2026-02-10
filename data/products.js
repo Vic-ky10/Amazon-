@@ -77,7 +77,7 @@ export let products = [];
         return new Product(productDetails);
       });
 
-      console.log("load products");
+      // console.log("load products");
       // if (typeof func === "function") {
       //   func();
       // }
@@ -101,7 +101,7 @@ export function loadProducts(func) {
       return new Product(productDetails);
     });
 
-    console.log("load products");
+    // console.log("load products");
     if (typeof func === "function") {
       func();
     }
