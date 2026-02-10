@@ -1,7 +1,5 @@
 //polymorphism = use a method without knowing the class
 
-
-
 import { formatCurrency } from "../script/utils/money.js";
 
 export function getProduct(productId) {
@@ -32,29 +30,37 @@ class Product {
   getPrice() {
     return `${formatCurrency(this.priceCents)}`;
   }
-  extraInfoHtml(){
-    return ' ';
+  extraInfoHtml() {
+    return " ";
   }
-  
 }
 
 class Clothing extends Product {
   sizeChartLink;
 
-  constructor(productDetails){
+  constructor(productDetails) {
     super(productDetails);
-    this.sizeChartLink = productDetails.sizeChartLink
+    this.sizeChartLink = productDetails.sizeChartLink;
   }
 
-  extraInfoHtml(){
-   // super.sizeChartLink()
-    return  ` 
+  extraInfoHtml() {
+    // super.sizeChartLink()
+    return ` 
      <a href ="${this.sizeChartLink}" target="_blank">Size Chart</a>
-    `
+    `;
   }
 }
 
+// const date = new Date();
 
+// console.log(date)
+// console.log(date.toLocaleTimeString()) // for the time
+
+// function logThis() {
+//   console.log(this);
+// }
+
+// logThis.call();
 
 export const products = [
   {
@@ -528,8 +534,7 @@ export const products = [
     keywords: ["sweaters", "hoodies", "apparel", "mens"],
   },
 ].map((productDetails) => {
-
-  if(productDetails.type === "clothing") {
+  if (productDetails.type === "clothing") {
     return new Clothing(productDetails);
   }
   return new Product(productDetails);
