@@ -77,15 +77,17 @@ export let products = [];
         return new Product(productDetails);
       });
 
-      // console.log("load products");
+      console.log("load products");
       // if (typeof func === "function") {
       //   func();
       // }
+    }).catch((error) => {
+       console.error("unexcepted error ")
     });
 
     return promise;
 }
-
+loadProductsFetch()
 // loadProductsFetch().then(() => {
 //   console.log("next step")
 // });
@@ -107,9 +109,15 @@ export function loadProducts(func) {
     }
   });
 
+  xhr.addEventListener('error' , (error) => {
+    console.log("unexpected error . Please try again later. " )
+  })
+
   xhr.open("GET", "https://supersimplebackend.dev/products");
   xhr.send();
 }
+
+loadProducts()
 
 // Load products where needed (amazon.js, checkout.js) via callbacks.
 

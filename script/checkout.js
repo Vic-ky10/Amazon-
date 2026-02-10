@@ -7,17 +7,20 @@ import { loadFromStorage } from "../data/cart.js";
 // import '../data/cart-class.js'
 
 async function loadPage() {
-  
-  await loadProductsFetch();
+  try {
+    await loadProductsFetch();
 
-  const value =  await new Promise((resolve) => {
-    loadProducts(() => {
-      resolve('value2');
+    const value = await new Promise((resolve) => {
+      loadProducts(() => {
+        resolve("value2");
+      });
     });
-  });
+  } catch (error) {
+    console.log("Error Occured . please try later");
+  }
 
-  renderOrderSummary();     // async - await , shortcut for promises  ,  lets us write asynchronous code like normal code.  
-                              //  use as
+  renderOrderSummary(); // async - await , shortcut for promises  ,  lets us write asynchronous code like normal code.
+  //  use as
   renderPaymentSummary();
 }
 loadPage();
