@@ -11,7 +11,7 @@ const today = dayjs();
 hello();
 
 const deliveryDate = today.add(7, "day");
-console.log(deliveryDate.format("dddd, MMMM D"));
+// console.log(deliveryDate.format("dddd, MMMM D"));
 
 export function renderOrderSummary() {
   let cartSummaryHTML = " ";
