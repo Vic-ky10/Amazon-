@@ -1,9 +1,42 @@
 .main {
-  margin-top: 60px;
+  margin-top: 70px;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 24px 60px;
+}
+
+:root {
+  --amazon-ink: #1f2933;
+  --amazon-muted: #5f6b76;
+  --amazon-surface: #ffffff;
+  --amazon-border: #e5e7eb;
+  --amazon-accent: #f59e0b;
+  --amazon-accent-dark: #d97706;
+  --amazon-highlight: #fff5d1;
+  --amazon-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+}
+
+body {
+  font-family: "Space Grotesk", "Roboto", Arial, sans-serif;
+  background: radial-gradient(
+      circle at top,
+      rgba(245, 158, 11, 0.08),
+      transparent 55%
+    ),
+    linear-gradient(180deg, #f8f5ee 0%, #f1f5f9 60%, #eef2f7 100%);
+  color: var(--amazon-ink);
+}
+
+input,
+select,
+button {
+  font-family: "Space Grotesk", "Roboto", Arial, sans-serif;
 }
 
 .products-grid {
   display: grid;
+  gap: 18px;
 
   /* - In CSS Grid, 1fr means a column will take up the
        remaining space in the grid.
@@ -66,16 +99,22 @@
 }
 
 .product-container {
-  padding-top: 40px;
-  padding-bottom: 25px;
-  padding-left: 25px;
-  padding-right: 25px;
-
-  border-right: 1px solid rgb(231, 231, 231);
-  border-bottom: 1px solid rgb(231, 231, 231);
+  padding: 28px 22px 22px;
+  border: 1px solid var(--amazon-border);
+  border-radius: 16px;
+  background: var(--amazon-surface);
+  box-shadow: var(--amazon-shadow);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease;
 
   display: flex;
   flex-direction: column;
+}
+
+.product-container:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
 }
 
 .product-image-container {
@@ -83,8 +122,10 @@
   justify-content: center;
   align-items: center;
 
-  height: 180px;
-  margin-bottom: 20px;
+  height: 190px;
+  margin-bottom: 18px;
+  background: var(--amazon-highlight);
+  border-radius: 14px;
 }
 
 .product-image {
@@ -96,8 +137,10 @@
 }
 
 .product-name {
-  height: 40px;
-  margin-bottom: 5px;
+  height: 44px;
+  margin-bottom: 6px;
+  font-weight: 600;
+  line-height: 1.25;
 }
 
 .product-rating-container {
@@ -112,7 +155,7 @@
 }
 
 .product-rating-count {
-  color: rgb(1, 124, 182);
+  color: var(--amazon-muted);
   cursor: pointer;
   margin-top: 3px;
 }
@@ -120,6 +163,7 @@
 .product-price {
   font-weight: 700;
   margin-bottom: 10px;
+  color: var(--amazon-accent-dark);
 }
 
 .product-quantity-container {
@@ -131,8 +175,8 @@
 }
 
 .added-to-cart {
-  color: rgb(6, 125, 98);
-  font-size: 16px;
+  color: #0f766e;
+  font-size: 15px;
 
   display: flex;
   align-items: center;
@@ -153,4 +197,6 @@
   width: 100%;
   padding: 8px;
   border-radius: 50px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
 }
