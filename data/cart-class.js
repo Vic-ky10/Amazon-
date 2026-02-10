@@ -2,6 +2,8 @@
 
 // constructor = let us run setup code
 
+// inheritance = lets us reuse code between classes
+
 class Cart {
   cartItems;
   #localStorageKey;
