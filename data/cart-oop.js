@@ -1,7 +1,7 @@
-// oops 
- //organizing our code into objects (tries to represent the real world)
+// oops
+//organizing our code into objects (tries to represent the real world)
 
- // class = object Generator
+// class = object Generator
 
 function Cart(localStorageKey) {
   const cart = {
@@ -89,5 +89,5 @@ cart.loadFromStorage();
 
 businessCart.loadFromStorage();
 
-console.log(cart)
-console.log(businessCart)
+console.log(cart);
+console.log(businessCart);

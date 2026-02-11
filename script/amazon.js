@@ -3,12 +3,88 @@ import { cart, addToCart } from "../data/cart.js";
 import { products, loadProducts } from "../data/products.js";
 // import { formatCurrency } from "./utils/money.js";
 
-loadProducts(renderProductsGrid);
+const searchInputElement = document.querySelector(".search-bar");
+const searchButtonElement = document.querySelector(".search-button");
+const productsGridElement = document.querySelector(".js-products-grid");
 
-function renderProductsGrid() {
+function getSearchQueryFromUrl() {
+  const url = new URL(window.location.href);
+  return (url.searchParams.get("search") || "").trim().toLowerCase();
+}
+
+function getFilteredProducts(searchQuery) {
+  if (!searchQuery) {
+    return products;
+  }
+
+  return products.filter((product) => {
+    const nameMatches = product.name.toLowerCase().includes(searchQuery);
+    const keywordMatches = product.keywords.some((keyword) =>
+      keyword.toLowerCase().includes(searchQuery)
+    );
+    return nameMatches || keywordMatches;
+  });
+}
+
+function updateSearchQueryInUrl(searchQuery) {
+  const url = new URL(window.location.href);
+
+  if (searchQuery) {
+    url.searchParams.set("search", searchQuery);
+  } else {
+    url.searchParams.delete("search");
+  }
+
+  history.replaceState({}, "", url);
+}
+
+function runSearch() {
+  if (!searchInputElement) {
+    return;
+  }
+
+  const searchQuery = searchInputElement.value.trim().toLowerCase();
+  updateSearchQueryInUrl(searchQuery);
+  renderProductsGrid(getFilteredProducts(searchQuery));
+}
+
+function setupSearch() {
+  if (!searchInputElement || !searchButtonElement) {
+    return;
+  }
+
+  searchInputElement.value = getSearchQueryFromUrl();
+
+  searchButtonElement.addEventListener("click", runSearch);
+
+  searchInputElement.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      runSearch();
+    }
+  });
+}
+
+loadProducts(() => {
+  const searchQuery = getSearchQueryFromUrl();
+
+  if (searchInputElement) {
+    searchInputElement.value = searchQuery;
+  }
+
+  renderProductsGrid(getFilteredProducts(searchQuery));
+  addCartQuantity();
+});
+
+setupSearch();
+
+function renderProductsGrid(productsToRender) {
+  if (!productsGridElement) {
+    return;
+  }
+
   let productsHTML = " ";
 
-  products.forEach((product) => {
+  productsToRender.forEach((product) => {
     productsHTML += `
 <div class="product-container">
           <div class="product-image-container">
@@ -65,9 +141,12 @@ function renderProductsGrid() {
 `;
   });
 
-  // console.log(productsHTML)
+  if (!productsToRender.length) {
+    productsGridElement.innerHTML = "<p>No products match your search.</p>";
+    return;
+  }
 
-  document.querySelector(".js-products-grid").innerHTML = productsHTML;
+  productsGridElement.innerHTML = productsHTML;
 
   document.querySelectorAll(".js-add-to-cart").forEach((button) => {
     button.addEventListener("click", () => {
@@ -79,13 +158,16 @@ function renderProductsGrid() {
   });
 }
 export function addCartQuantity() {
+  const cartQuantityElement = document.querySelector(".js-cart-quantity");
+
+  if (!cartQuantityElement) {
+    return;
+  }
+
   let cartQuantity = 0;
 
   cart.forEach((cartItem) => {
     cartQuantity += cartItem.quantity;
   });
-  document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
-
-  console.log(cartQuantity);
-  console.log(cart);
+  cartQuantityElement.innerHTML = cartQuantity;
 }
